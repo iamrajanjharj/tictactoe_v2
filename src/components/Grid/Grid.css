@@ -1,0 +1,23 @@
+.grid {
+  height: 500px;
+  width: 500px;
+  display: flex;
+  gap: 1rem;
+  justify-content: space-between;
+  align-items: center;
+  flex-wrap: wrap;
+}
+
+.highlight {
+  color: white;
+}
+
+.reset {
+  padding: 1rem;
+  border-radius: 10px;
+  width: 500px;
+  border: none;
+  color: white;
+  background-color: var(--reset-green);
+  cursor: pointer;
+}
