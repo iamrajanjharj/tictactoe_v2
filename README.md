@@ -1,70 +1,105 @@
-# Getting Started with Create React App
+# Tic-Tac-Toe v2 🎮
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+A simple, interactive Tic-Tac-Toe game built with React! This project demonstrates the use of React components, state management, and event handling. The game allows two players to take turns, displays the current turn, and identifies the winner or a tie situation with a notification.
 
-## Available Scripts
+![alt text](image.png)
 
-In the project directory, you can run:
+## Features 🌟
 
-### `npm start`
+- **Two-player functionality**: Switches between "X" and "O" on each turn.
+- **Winner Notification**: Highlights the winner at the end of the game.
+- **Restart Game**: A button to restart the game after it finishes.
+- **React Toast Notifications**: Provides winning alerts for a fun user experience.
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in your browser.
+## Project Structure 📂
 
-The page will reload when you make changes.\
-You may also see any lint errors in the console.
+This project is organized into components for modular and reusable code:
 
-### `npm test`
+- **App.jsx**: The main application file.
+- **Grid**: The Tic-Tac-Toe board component that contains logic to handle turns and winning conditions.
+- **Card**: Represents each cell in the Tic-Tac-Toe grid.
+- **Icon**: Displays the appropriate icon for "X" or "O" using `react-icons`.
+- **IsWinner**: A utility function to check for winning conditions on the grid.
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+## Code Snippets 🧩
 
-### `npm run build`
+Here are some key parts of the code:
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
+### Grid Component
 
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
+```jsx
+function Grid({ noOfCards }) {
+  const [turn, setTurn] = useState(true);
+  const [board, setBoard] = useState(Array(noOfCards).fill(""));
+  const [winner, setWinner] = useState("");
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+  function play(index) {
+    board[index] = turn ? "0" : "X";
+    const winner = IsWinner(board, turn ? "0" : "X");
+    if (winner) {
+      setWinner(winner);
+      toast(`Congratulations. ${winner} won the game.`);
+    }
+    setBoard([...board]);
+    setTurn(!turn);
+  }
 
-### `npm run eject`
+  return (
+    <div className="grid">
+      {board.map((val, idx) => (
+        <Card
+          key={idx}
+          player={val}
+          index={idx}
+          gameEnd={winner}
+          onPlay={play}
+        />
+      ))}
+    </div>
+  );
+}
+```
 
-**Note: this is a one-way operation. Once you `eject`, you can't go back!**
+### IsWinner Utility
 
-If you aren't satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
+```jsx
+function IsWinner(board, symbol) {
+  return (
+    (board[0] === symbol && board[1] === symbol && board[2] === symbol) ||
+    // More winning conditions...
+    (board[2] === symbol && board[4] === symbol && board[6] === symbol)
+  );
+}
 
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you're on your own.
+export default IsWinner;
+```
 
-You don't have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn't feel obligated to use this feature. However we understand that this tool wouldn't be useful if you couldn't customize it when you are ready for it.
+## Installation ⚙️
 
-## Learn More
+1. **Clone the repository**:
+   ```bash
+   git clone https://github.com/iamrajanjharj/tictactoe_v2.git
+   ```
+2. **Navigate to the project directory**:
+   ```bash
+   cd tictactoe_v2
+   ```
+3. **Install dependencies**:
+   ```bash
+   npm install
+   ```
+4. **Run the app**:
+   ```bash
+   npm start
+   ```
 
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
+## Technologies Used 🛠️
 
-To learn React, check out the [React documentation](https://reactjs.org/).
+- **React**: Core UI library.
+- **React Icons**: For displaying player symbols.
+- **React Toastify**: For in-game notifications.
+- **CSS**: Custom styling for a polished look.
 
-### Code Splitting
+---
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/code-splitting](https://facebook.github.io/create-react-app/docs/code-splitting)
-
-### Analyzing the Bundle Size
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size](https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size)
-
-### Making a Progressive Web App
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app](https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app)
-
-### Advanced Configuration
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/advanced-configuration](https://facebook.github.io/create-react-app/docs/advanced-configuration)
-
-### Deployment
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/deployment](https://facebook.github.io/create-react-app/docs/deployment)
-
-### `npm run build` fails to minify
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
+Enjoy the game! Feel free to contribute or open issues for feedback and improvements. 😊
